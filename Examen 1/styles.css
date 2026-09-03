@@ -1,3 +1,60 @@
-link::-webkit-search-results-decoration {
-  display: none;
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#0B1020;
+  --panel:#131A32;
+  --panel-2:#0F1530;
+  --border:#232C4D;
+  --text:#EDEFFB;
+  --text-muted:#8C93B8;
+  --gold:#F4B43C;
+  --gold-dim:#3A3320;
+  --teal:#43D9C8;
+  --rose:#E8697A;
+  --rose-dim:#33202a;
+  --slate:#3A4372;
+  --green:#6FCF97;
+  --radius:12px;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(1200px 600px at 15% -10%, #17204a 0%, transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, #14183a 0%, transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  min-height:100vh;
+  padding:32px 20px 64px;
+}
+
+.wrap{max-width:1180px;margin:0 auto;}
+
+header{margin-bottom:28px;}
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.14em;
+  color:var(--teal);
+  text-transform:uppercase;
+  margin-bottom:10px;
+  display:flex;align-items:center;gap:10px;
+}
+.eyebrow::before{
+  content:"";
+  width:8px;height:8px;border-radius:50%;
+  background:var(--teal);
+  box-shadow:0 0 0 3px rgba(67,217,200,.15);
+}
+h1{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(28px,4.2vw,42px);
+  margin:0 0 8px;
+  letter-spacing:-.01em;
 }
