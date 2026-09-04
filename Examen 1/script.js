@@ -72,6 +72,7 @@
     }
     return acts;
   }
+
   function buildAxis(){
     axisEl.innerHTML = '';
     gridEl.innerHTML = '';
@@ -87,6 +88,7 @@
   }
 
   function buildRows(){
+    // remove old rows (keep grid-lines + cursor)
     Array.from(rowsEl.querySelectorAll('.row')).forEach(r=>r.remove());
     activities.forEach(act=>{
       const row = document.createElement('div');
@@ -157,4 +159,92 @@
     logEl.appendChild(p);
     logEl.scrollTop = logEl.scrollHeight;
   }
+
+  function step(){
+    if(finished || awaitingDecision) return;
+    stepIndex++;
+    if(stepIndex >= sortedOrder.length){
+      finish();
+      return;
+    }
+    const act = sortedOrder[stepIndex];
+    act.status = 'evaluating';
+    awaitingDecision = true;
+    renderStates();
+    log('→ Evaluando '+act.label+' · '+act.name+' ('+fmt(act.start)+'–'+fmt(act.end)+')', 'sys');
+    evalTimeout = setTimeout(()=>decide(act), 380);
+  }
+
+  function decide(act){
+    const canFit = (lastEnd === null) || (act.start >= lastEnd);
+    if(canFit){
+      act.status = 'accepted';
+      acceptedCount++;
+      log('✓ Aceptada — la sala está libre desde las '+(lastEnd===null?'el inicio del día':fmt(lastEnd))+'.', 'ok');
+      lastEnd = act.end;
+    } else {
+      act.status = 'rejected';
+      rejectedCount++;
+      log('✕ Rechazada — se cruza con la última reunión aceptada (termina a las '+fmt(lastEnd)+').', 'no');
+    }
+    awaitingDecision = false;
+    renderStates();
+    if(stepIndex >= sortedOrder.length-1){
+      finish();
+    }
+  }
+
+  function finish(){
+    if(finished) return;
+    finished = true;
+    pause();
+    log('— Simulación completa: '+acceptedCount+' de '+activities.length+' reuniones asignadas a la Sala 4B. —', 'sys');
+    renderStates();
+  }
+
+  function play(){
+    if(finished) return;
+    btnPlay.textContent = '⏸ Pausar';
+    playTimer = setInterval(()=>{
+      if(!awaitingDecision) step();
+    }, Number(speedSel.value));
+  }
+  function pause(){
+    btnPlay.textContent = '▶ Reproducir';
+    clearInterval(playTimer);
+    playTimer = null;
+  }
+
+  function resetSimulation(keepData){
+    pause();
+    clearTimeout(evalTimeout);
+    if(!keepData){
+      activities = generateActivities();
+    } else {
+      activities.forEach(a=>a.status='pending');
+    }
+    sortedOrder = activities.slice().sort((a,b)=> a.end - b.end || a.start - b.start);
+    stepIndex = -1;
+    lastEnd = null;
+    awaitingDecision = false;
+    finished = false;
+    acceptedCount = 0;
+    rejectedCount = 0;
+    logEl.innerHTML = '';
+    boardCountEl.textContent = activities.length + ' solicitudes';
+    buildRows();
+    buildChips();
+    renderStates();
+    log('Nuevo caso listo. '+activities.length+' solicitudes ordenadas por hora de fin. Pulsa "Avanzar un paso" o "Reproducir".', 'sys');
+  }
+
+  btnStep.addEventListener('click', step);
+  btnPlay.addEventListener('click', ()=>{ if(playTimer) pause(); else play(); });
+  btnReset.addEventListener('click', ()=> resetSimulation(true));
+  btnNew.addEventListener('click', ()=> resetSimulation(false));
+  speedSel.addEventListener('change', ()=>{ if(playTimer){ pause(); play(); } });
+
+  buildAxis();
+  resetSimulation(false);
 })();
+
