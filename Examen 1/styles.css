@@ -187,3 +187,13 @@ footer{
   white-space:nowrap;
   letter-spacing:.02em;
 }
+
+button:focus-visible{outline:2px solid var(--teal);outline-offset:2px;}
+
+@media (prefers-reduced-motion:reduce){
+  .bar{animation:none !important;transition:background .2s ease;}
+}
+
+@media (max-width:920px){
+  .layout{grid-template-columns:1fr;}
+}
