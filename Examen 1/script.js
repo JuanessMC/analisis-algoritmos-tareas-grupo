@@ -72,4 +72,89 @@
     }
     return acts;
   }
+  function buildAxis(){
+    axisEl.innerHTML = '';
+    gridEl.innerHTML = '';
+    for(let h=DAY_START; h<=DAY_END; h++){
+      const s = document.createElement('span');
+      s.style.left = pct(h)+'%';
+      s.textContent = String(h).padStart(2,'0')+':00';
+      axisEl.appendChild(s);
+      const line = document.createElement('i');
+      line.style.left = pct(h)+'%';
+      gridEl.appendChild(line);
+    }
+  }
+
+  function buildRows(){
+    Array.from(rowsEl.querySelectorAll('.row')).forEach(r=>r.remove());
+    activities.forEach(act=>{
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.id = 'row-'+act.id;
+
+      const label = document.createElement('div');
+      label.className = 'row-label';
+      label.innerHTML = '<b>'+act.label+' · '+act.name+'</b><span>'+fmt(act.start)+'–'+fmt(act.end)+'</span>';
+      row.appendChild(label);
+
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.id = 'bar-'+act.id;
+      bar.style.left = pct(act.start)+'%';
+      bar.style.width = Math.max(pct(act.end)-pct(act.start), 4)+'%';
+      bar.innerHTML = fmt(act.start)+'–'+fmt(act.end)+'<span class="tag"></span>';
+      row.appendChild(bar);
+
+      rowsEl.appendChild(row);
+    });
+  }
+
+  function buildChips(){
+    chipsEl.innerHTML = '';
+    sortedOrder.forEach((act,i)=>{
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.id = 'chip-'+act.id;
+      chip.textContent = act.label+' ('+fmt(act.start)+'–'+fmt(act.end)+')';
+      chipsEl.appendChild(chip);
+    });
+  }
+
+  function renderStates(){
+    activities.forEach(act=>{
+      const bar = document.getElementById('bar-'+act.id);
+      const chip = document.getElementById('chip-'+act.id);
+      bar.classList.remove('evaluating','accepted','rejected');
+      chip.classList.remove('current','accepted','rejected');
+      const tag = bar.querySelector('.tag');
+      if(act.status==='evaluating'){ bar.classList.add('evaluating'); chip.classList.add('current'); tag.textContent='…'; }
+      else if(act.status==='accepted'){ bar.classList.add('accepted'); chip.classList.add('accepted'); tag.textContent='✓'; }
+      else if(act.status==='rejected'){ bar.classList.add('rejected'); chip.classList.add('rejected'); tag.textContent='✕'; }
+      else { tag.textContent=''; }
+    });
+
+    if(lastEnd !== null){
+      cursorEl.style.display = 'block';
+      cursorEl.style.left = pct(lastEnd)+'%';
+    } else {
+      cursorEl.style.display = 'none';
+    }
+
+    mEvaluated.textContent = (stepIndex+1<0?0:Math.min(stepIndex+1, activities.length)) + ' / ' + activities.length;
+    mAccepted.textContent = acceptedCount;
+    mRejected.textContent = rejectedCount;
+    badgeDone.classList.toggle('show', finished);
+
+    btnStep.disabled = finished || awaitingDecision;
+    btnPlay.disabled = finished;
+  }
+
+  function log(msg, cls){
+    const p = document.createElement('p');
+    if(cls) p.className = cls;
+    p.textContent = msg;
+    logEl.appendChild(p);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
 })();
