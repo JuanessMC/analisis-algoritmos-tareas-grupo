@@ -10,9 +10,10 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">Programación de intervalos</div>
-    <h1>Sala 4B</h1>
+    <div class="eyebrow"> Programación de intervalos</div>
+    <h1>Sala 4B </h1>
   </header>
+
   <div class="layout">
 
     <div class="panel" id="board-panel">
@@ -30,6 +31,7 @@
           </select>
         </div>
       </div>
+
       <p class="board-title">Solicitudes de reserva (08:00–18:00) <b id="board-count">8 solicitudes</b></p>
       <div class="axis" id="axis"></div>
       <div class="rows" id="rows">
@@ -38,22 +40,25 @@
       </div>
 
       <div class="order-strip">
+        <p class="board-title">Orden de evaluación del algoritmo <b>(ordenadas por hora de fin, de menor a mayor)</b></p>
         <div class="chips" id="chips"></div>
       </div>
+
     </div>
+
     <div class="panel" id="side-panel">
-      <div class="metric"><span>Solicitudes evaluadas</span>&nbsp<span class="val" id="m-evaluated">0 / 8</span></div>
-      <div class="metric"><span>Reuniones aceptadas</span>&nbsp<span class="val" id="m-accepted">0</span></div>
-      <div class="metric"><span>Rechazadas por cruce</span>&nbsp<span class="val" id="m-rejected">0</span></div>
-      <div class="badge-done" id="badge-done">Este es el número máximo de reuniones que la Sala 4B puede alojar hoy sin cruces.</div>
+      <div class="metric"><span>Solicitudes evaluadas</span><span class="val" id="m-evaluated">0 / 8</span></div>
+      <div class="metric"><span>Reuniones aceptadas</span><span class="val" id="m-accepted">0</span></div>
+      <div class="metric"><span>Rechazadas por cruce</span><span class="val" id="m-rejected">0</span></div>
+      <div class="badge-done" id="badge-done"> Número máximo de reuniones que la Sala 4B puede alojar hoy sin cruces.</div>
 
       <div class="log-title">Bitácora de decisiones</div>
       <div class="log" id="log"></div>
     </div>
+
   </div>
 
   <footer>SALA 4B · SELECCIÓN DE ACTIVIDADES</footer>
-    
 </div>
 
 <script src="script.js"></script>
