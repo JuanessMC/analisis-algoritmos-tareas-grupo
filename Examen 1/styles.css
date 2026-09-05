@@ -272,6 +272,7 @@ button:focus-visible{outline:2px solid var(--brand);outline-offset:2px;}
   padding:2px 6px;
   white-space:nowrap;
   letter-spacing:.02em;
+<<<<<<< HEAD
   box-shadow:var(--shadow-sm);
 }
 
@@ -397,3 +398,16 @@ footer{
   font-size:11px;
   letter-spacing:.04em;
 }
+=======
+}
+
+button:focus-visible{outline:2px solid var(--teal);outline-offset:2px;}
+
+@media (prefers-reduced-motion:reduce){
+  .bar{animation:none !important;transition:background .2s ease;}
+}
+
+@media (max-width:920px){
+  .layout{grid-template-columns:1fr;}
+}
+>>>>>>> 444d6f5ba873307fbc79596ba92e581fbb49eb97
