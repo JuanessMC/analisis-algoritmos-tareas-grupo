@@ -22,3 +22,25 @@ select,button{font:inherit;padding:8px 10px;border-radius:7px;border:1px solid v
 button{cursor:pointer;font-weight:700}
 button.go{background:var(--acc);border-color:var(--acc);color:#fff}
 button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--node);outline-offset:2px}
+
+.row{display:flex;gap:8px;margin-top:10px}
+input[type=range]{width:100%}
+.res b{color:var(--acc)}
+.res ul{margin:6px 0;padding-left:18px}
+.tot{font:700 22px Georgia,serif;margin:2px 0}
+details summary{cursor:pointer;font-weight:700}
+details p,details li{color:var(--mut);margin:6px 0}
+.hint{font-size:13px;color:var(--mut);padding:8px 14px 10px;margin:0}
+.nl{font-size:11px;paint-order:stroke;stroke:var(--sea);stroke-width:3px;fill:var(--ink);pointer-events:none;font-weight:700}
+.wl{font-size:10px;paint-order:stroke;stroke:var(--sea);stroke-width:3px;fill:var(--mut);pointer-events:none}
+.nd{cursor:grab}.nd:active{cursor:grabbing}
+
+h2{font:700 18px/1.2 Georgia,serif;margin:0 0 8px}
+#live p{margin:4px 0}
+.bar{height:8px;background:var(--bd);border-radius:5px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--acc)}
+.steps{list-style:none;margin:8px 0 0;padding:0;font-size:14px}
+.steps li{padding:5px 8px;border-radius:6px;color:var(--mut)}
+.steps li span{display:inline-block;width:20px}
+.steps li.ok{color:var(--ink)}.steps li.ok span{color:var(--node)}
+.steps li.cur{background:color-mix(in srgb,var(--acc) 20%,transparent);color:var(--ink)}
