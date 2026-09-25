@@ -1,11 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grafos: rutas entre aeropuertos</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+<header>
+<h1>Grafos: la mejor ruta entre aeropuertos</h1>
+</header>
+<main>
+<section class="card map">
+<svg id="map" viewBox="0 0 700 690" role="img" aria-label="Mapa de América con un grafo de aeropuertos"></svg>
+<p class="hint">Una aerolínea de carga debe enviar medicamentos de Ciudad de México a Buenos Aires. La carga debe pasar por el hub de Bogotá para inspección.</p>
+</section>
+
+<aside class="side">
+<div class="card">
+<div class="card res" id="res" aria-live="polite"></div>
+<div class="card"><h2>Dijkstra paso a paso</h2><div id="live"></div><ol id="steps" class="steps"></ol></div>
+<div class="card">
+</div>
+</aside>
+</main>
+<script src="script.js"></script>
 </body>
 </html>
