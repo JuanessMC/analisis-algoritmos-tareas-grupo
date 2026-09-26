@@ -75,3 +75,53 @@ function solve(){
  for(let i=1;i<pts.length;i++)cum.push(cum[i-1]+Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y));
  total=cum[cum.length-1]||0;pos=0;setPlane(0);
 }
+
+// ---- Dijkstra paso a paso: información en vivo mientras vuela el avión ----
+let lk='';
+function live(i,f,x,y){
+ const pts=route.map(id=>byId[id]);
+ if(pts.length<2){$('#live').innerHTML='<p>El origen y el destino son el mismo aeropuerto: no hay recorrido.</p>';$('#steps').innerHTML='';lk='';return}
+ const segs=pts.slice(1).map((p,k)=>km(pts[k],p)),tot=segs.reduce((a,b)=>a+b,0)||1;
+ const done=segs.slice(0,i-1).reduce((a,b)=>a+b,0)+segs[i-1]*f,rem=Math.round(segs[i-1]*(1-f));
+ const st=pos>=total&&total>0?'fin':(flying||pos>0)?'vuelo':'listo',a=pts[i-1],b=pts[i];
+ tag.textContent=st==='fin'?`Llegó a ${b.id}`:`→ ${b.id} · ${fmt(rem)} km`;
+ tag.setAttribute('x',x);tag.setAttribute('y',y-26);tag.setAttribute('visibility','visible');
+ nodes.forEach(n=>{const tg=st!=='fin'&&n===b;n.c.setAttribute('stroke',tg?'var(--acc)':'#fff');n.c.setAttribute('stroke-width',tg?5:2.5)});
+ let h=st==='fin'?`<p><b>Llegó a ${nm(b.id)}.</b> Recorrido total: ${fmt(tot)} km.</p>`
+  :st==='listo'?`<p>Listo para despegar de <b>${nm(a.id)}</b>. Pulsa “Volar”.</p>`
+  :`<p>✈ Voy de <b>${a.id}</b> hacia <b>${nm(b.id)}</b></p><p>Tramo: <b>${fmt(segs[i-1])} km</b> · Faltan: <b>${fmt(rem)} km</b></p>`;
+ h+=`<p>Recorrido total: ${fmt(Math.round(st==='fin'?tot:done))} de ${fmt(tot)} km</p><div class="bar"><i style="width:${(100*(st==='fin'?tot:done)/tot).toFixed(1)}%"></i></div>`;
+ $('#live').innerHTML=h;
+ const key=route.join()+'|'+tot+'|'+i+'|'+st;
+ if(key!==lk){lk=key;let acc=0;
+  $('#steps').innerHTML=segs.map((d,k)=>{acc+=d;const ic=st==='fin'||k<i-1?'✓':(k===i-1&&st==='vuelo')?'✈':'○';
+   return `<li class="${ic==='✈'?'cur':ic==='✓'?'ok':''}"><span>${ic}</span> Paso ${k+1}: ${pts[k].id} → ${pts[k+1].id} <b>${fmt(d)} km</b> <small>(acumulado ${fmt(acc)} km)</small></li>`}).join('')}
+}
+function setPlane(s){
+ const pts=route.map(id=>byId[id]);
+ if(pts.length<2){plane.setAttribute('visibility','hidden');tag.setAttribute('visibility','hidden');live(0,0);return}
+ let i=1;while(i<cum.length-1&&cum[i]<s)i++;
+ const a=pts[i-1],b=pts[i],seg=cum[i]-cum[i-1]||1,f=Math.max(0,Math.min(1,(s-cum[i-1])/seg));
+ const x=a.x+(b.x-a.x)*f,y=a.y+(b.y-a.y)*f,ang=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI;
+ plane.setAttribute('transform',`translate(${x},${y}) rotate(${ang}) scale(1.3)`);plane.setAttribute('visibility','visible');
+ live(i,f,x,y);
+}
+function tick(t){
+ const dt=Math.min(.05,(t-last)/1000);last=t;pos+=dt*130*$('#v').value;
+ if(pos>=total){pos=total;flying=false;$('#fly').textContent='Volar ✈'}
+ setPlane(pos);if(flying)raf=requestAnimationFrame(tick);
+}
+function stopFly(){flying=false;cancelAnimationFrame(raf);$('#fly').textContent='Volar ✈'}
+$('#fly').onclick=()=>{
+ if(flying){stopFly();return}
+ if(route.length<2)return;
+ if(pos>=total)pos=0;flying=true;last=performance.now();$('#fly').textContent='Pausar';raf=requestAnimationFrame(tick);
+};
+$('#rs').onclick=()=>{stopFly();nodes.forEach(n=>{n.x=n.x0;n.y=n.y0});update();solve()};
+
+const opts=nodes.map(n=>`<option value="${n.id}">${n.id} · ${n.code} · ${n.name}</option>`).join('');
+$('#o').innerHTML=opts;$('#d').innerHTML=opts;$('#w').innerHTML='<option value="">Ninguna</option>'+opts;
+$('#o').value='A';$('#w').value='C';$('#d').value='F';
+['o','w','d'].forEach(i=>$('#'+i).onchange=()=>{stopFly();solve()});
+matchMedia('(prefers-reduced-motion: reduce)').matches&&($('#v').value=.6);
+update();solve();
