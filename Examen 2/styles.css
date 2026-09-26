@@ -270,6 +270,7 @@ h2 {
     color: var(--node);
 }
 
+
 .steps li.cur {
     background: color-mix(
         in srgb,
