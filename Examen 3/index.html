@@ -1,1 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta Turística Optimizada - Programación Dinámica</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Lugares de Interés</h2>
 
+            <ul class="places-list" id="placesList">
+                <!-- Se llenará dinámicamente con JavaScript -->
+            </ul>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="calculateBtn">
+                    Calcular Ruta Óptima
+                </button>
+                <button class="btn btn-danger" id="clearBtn">
+                    Limpiar Selección
+                </button>
+            </div>
+
+            <div class="results" id="results">
+                <!-- Resultados se mostrarán aquí -->
+            </div>
+        </aside>
+
+        <!-- Mapa -->
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Nuestros scripts -->
+    <script type="module" src="places.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
