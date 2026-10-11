@@ -1,104 +1,76 @@
-# 🗺️ Ruta Turística Optimizada con Programación Dinámica
+# Rutas turísticas óptimas mediante Programación Dinámica
 
-Una aplicación web interactiva que resuelve el Problema del Viajante de Comercio (TSP) usando el algoritmo de Held-Karp con Programación Dinámica y Bitmask DP para encontrar la ruta óptima que visita múltiples lugares de interés en una ciudad.
+**Examen 2 – Análisis de Algoritmos**
 
-## 🎯 Objetivo del Proyecto
+# Integrantes
 
-Demostrar cómo la Programación Dinámica puede reducir dramáticamente la complejidad computacional de problemas NP-hard como el TSP, pasando de O(N!) por fuerza bruta a O(N²·2ᴺ) usando memoización.
+- DAVID PRADA QUINTERO
+- RICARDO AMORTEGUI ESPINOSA
+- JALVI HUMBERTO VILLEGAS TABORDA
+- JUAN ESTEBAN MORENO CUADROS
 
-## 🚀 Características
+<br>
+<br>
+<br>
 
-- **Interfaz tipo Google Maps** usando Leaflet.js y OpenStreetMap
-- **Selección interactiva** de lugares de interés desde una lista predefinida
-- **Algoritmo Held-Karp** implementado con Programación Dinámica y Bitmask
-- **Distancias reales de conducción** usando OSRM (Open Source Routing Machine)
-- **Visualización de rutas reales** que siguen las calles de la ciudad
-- **Animación dinámica** de un vehículo recorriendo la ruta óptima
-- **Comparación de complejidad** entre fuerza bruta y DP
-- **Responsive design** para móvil y escritorio
+# Video de sustentación
 
-## 📐 Algoritmo Held-Karp (TSP con Bitmask DP)
+[Ver_DEL_VIDEO
 
-### Representación del Estado
-- **State**: `(mask, u)` donde:
-  - `mask`: Número entero cuya representación binaria indica qué lugares han sido visitados
-    - Ejemplo: Para 4 lugares, `mask = 0101₂ = 5₁₀` significa que los lugares 0 y 2 fueron visitados
-  - `u`: Lugar actual donde se encuentra el viajero
+# Problema
 
-### Ecuación de Recurrencia
-```
-DP(mask, u) = min(v ∉ mask) [ dist(u, v) + DP(mask ∪ {v}, v) ]
-```
+Un turista desea visitar varios lugares de interés de la ciudad de Medellín recorriendo la menor distancia posible.
 
-### Caso Base
-Cuando todos los lugares han sido visitados (mask == (1 << N) - 1), retornar la distancia desde u hasta el punto de inicio.
+El recorrido debe comenzar en un punto de origen, visitar una sola vez cada uno de los lugares seleccionados y, finalmente, regresar al punto inicial.
 
-### Complejidad
-- **Fuerza bruta**: O(N!) - Impráctico para N > 15
-- **Held-Karp con memoización**: O(N²·2ᴺ) - Maneja N ≈ 20-25 en la práctica
+Este problema corresponde al **Problema del Viajante de Comercio**, conocido como **Traveling Salesman Problem (TSP)**, uno de los problemas clásicos de optimización combinatoria.
 
-## 🏗️ Estructura del Proyecto
+La pregunta que se desea responder es:
 
-```
-tourist-route-dp/
-├── index.html          # Estructura principal
-├── style.css           # Estilos visuales
-├── script.js           # Lógica del algoritmo y UI
-├── places.js           # Base de datos de lugares (La Candelaria, Bogotá)
-└── README.md           # Este archivo
-```
+**¿Cuál es la ruta de menor distancia que permite visitar todos los lugares turísticos seleccionados y regresar al punto de origen?**
 
-## 🛠️ Tecnologías Utilizadas
+# Solución
 
-- **HTML5/CSS3/JavaScript Vanilla** - Sin frameworks externos
-- **Leaflet.js** - Biblioteca para mapas interactivos
-- **OpenStreetMap** - Servicio gratuito de mapas
-- **Algoritmo Held-Karp** - Implementación pura de Programación Dinámica
+Los lugares turísticos se modelan como un grafo completo, no dirigido y ponderado.
 
-## 📝 Cómo Usarlo
+Cada lugar representa un nodo del grafo. Las conexiones entre los lugares representan las aristas y sus pesos corresponden a las distancias de conducción en kilómetros.
 
-1. **Abrir el mapa**: La aplicación se centra en Medellín, Colombia
-2. **Seleccionar lugares**: Marque los lugares que desea visitar desde la barra lateral
-3. **Calcular ruta**: Haga clic en "Calcular Ruta Óptima"
-4. **Ver resultados**: 
-   - Aparecerá la distancia mínima en km
-   - Se mostrará la secuencia óptima de visita
-   - La ruta se dibujará en el mapa con marcadores numerados
-5. **Explorar**: Puede hacer clic en cualquier punto del mapa para agregar marcadores personalizados
+Para encontrar el recorrido de menor distancia se utiliza el algoritmo de **Held-Karp**, una solución basada en **Programación Dinámica** y máscaras de bits, también conocidas como *bitmasks*.
 
-## 🎓 Value Educativo
+El algoritmo almacena los resultados de los subproblemas calculados previamente. De esta manera, evita repetir operaciones y reduce la complejidad respecto a una solución por fuerza bruta.
 
-Este proyecto demuestra claramente:
-1. **Problema NP-hard real** con aplicaciones prácticas (turismo, logística)
-2. **Impacto de la Programación Dinámica**: Reducción exponencial de complejidad
-3. **Técnica de memoization**: Almacenamiento de resultados intermedios
-4. **Representación compacta de estado**: Uso eficiente de bitmasks
-5. **Visualización de resultados**: Hace tangible un concepto abstracto
+Con la aplicación web se puede:
 
-## 📊 Complejidad Comparativa
+* Visualizar los lugares turísticos sobre un mapa interactivo.
+* Seleccionar los lugares que se desean visitar.
+* Elegir el punto de inicio del recorrido.
+* Calcular la ruta óptima automáticamente.
+* Visualizar la ruta utilizando caminos reales de la ciudad.
+* Consultar la distancia total del recorrido.
+* Ver el orden en el que deben visitarse los lugares.
+* Observar un vehículo recorriendo la ruta calculada.
+* Agregar puntos personalizados haciendo clic sobre el mapa.
+* Comparar la complejidad de la fuerza bruta con la del algoritmo Held-Karp.
 
-| N (lugares) | Fuerza Bruta O(N!) | Held-Karp O(N²·2ᴺ) |
-|-------------|-------------------|-------------------|
-| 5           | 120 operaciones   | 800 operaciones   |
-| 8           | 40,320 operaciones| 16,384 operaciones|
-| 10          | 3,628,800 operaciones| 184,320 operaciones|
-| 12          | 479M operaciones  | 2M operaciones    |
-| 15          | 1.3B operaciones  | 73M operaciones   |
+# El grafo
 
-*Note: Los valores son aproximados y muestran la tendencia*
+| Elemento | En el problema |
+|---|---|
+| Nodo o vértice | Un lugar turístico |
+| Arista | Una conexión entre dos lugares |
+| Peso | Distancia de conducción entre dos lugares, medida en kilómetros |
+| Grafo completo | Cada lugar puede conectarse con todos los demás |
+| Ciclo hamiltoniano | Recorrido que visita cada lugar una vez y regresa al origen |
+| Solución óptima | Ciclo con la menor distancia total |
 
-## 🔧 Personalización
+Las distancias se obtienen mediante rutas de conducción. Por esta razón, la distancia entre dos lugares corresponde al recorrido por las calles y no únicamente a la distancia en línea recta.
 
-Para usar esta aplicación con otras ciudades:
-1. Modificar `places.js` con coordenadas de lugares de interés
-2. Ajustar el centro inicial del mapa en `script.js`
-3. Opcional: Integrar con OSRM para distancias de camino real en lugar de Haversine
+# Algoritmo Held-Karp
 
-## 📚 Referencias
+El algoritmo Held-Karp resuelve el TSP utilizando Programación Dinámica.
 
-- Held, M., & Karp, R. M. (1962). A dynamic programming approach to sequencing problems. *Journal of the Society for Industrial and Applied Mathematics*, 10(1), 196-210.
-- Bellman, R. (1957). Dynamic Programming. Princeton University Press.
+En lugar de evaluar todas las permutaciones posibles de los lugares, divide el problema en subproblemas más pequeños y almacena sus resultados para reutilizarlos posteriormente.
 
-## 👨‍💻 Desarrollado para
+## Representación del estado
 
-Análisis de Algoritmos - Entrega sobre Programación Dinámica y su aplicación a problemas reales.
+Cada subproblema se representa mediante el estado:
