@@ -1,6 +1,6 @@
 # Rutas turísticas óptimas mediante Programación Dinámica
 
-**Examen 2 – Análisis de Algoritmos**
+**Examen 3 – Análisis de Algoritmos**
 
 # Integrantes
 
@@ -15,7 +15,7 @@
 
 # Video de sustentación
 
-[Ver_DEL_VIDEO
+https://correoitmedu-my.sharepoint.com/:v:/g/personal/ricardoamortegui323267_correo_itm_edu_co/IQDwjMNr36zCS5_CJLyy3gX0AZps-uGhTOuoYLTYr56PvmQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=2KmrVz
 
 # Problema
 
@@ -71,6 +71,3 @@ El algoritmo Held-Karp resuelve el TSP utilizando Programación Dinámica.
 
 En lugar de evaluar todas las permutaciones posibles de los lugares, divide el problema en subproblemas más pequeños y almacena sus resultados para reutilizarlos posteriormente.
 
-## Representación del estado
-
-Cada subproblema se representa mediante el estado:
