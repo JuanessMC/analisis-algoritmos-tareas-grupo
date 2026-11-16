@@ -3,10 +3,9 @@
 ## Autoría
 
 | Integrante | Usuario de git | Ejercicios |
-| --- | --- | --- |
+| … | … | … |
+| … | … | … |
 | David Prada Quintero | `DavidP03` | 72, 300 |
-| … | … | … |
-| … | … | … |
 | … | … | … |
 
 ## 72. Edit Distance
