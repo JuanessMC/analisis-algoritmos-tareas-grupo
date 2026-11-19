@@ -36,7 +36,8 @@ Enlace: https://leetcode.com/problems/kth-largest-element-in-an-array/descriptio
 
 Autor: Jalvi Villegas (JVillegasT)
 
-Código: kth-largest-element/heap.py
+Código:[kth-largest-element/heap.py](kth-largest-element/heap.py)   
+
 
 Familia: montículos / colas de prioridad (Heaps)
 
