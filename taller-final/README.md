@@ -46,3 +46,20 @@ Idea: Usar un min-heap de tamaño $k$ para almacenar los elementos más grandes 
 Complejidad: tiempo $O(N \log k)$ y espacio $O(k)$, con $N = \text{nums.length}$.
 
 ![Accepted — kth-largest](Evidencias/kth-largest-accepted.png)
+
+
+##   179. Largest Number
+Enlace: https://leetcode.com/problems/largest-number/description/
+
+Autor: Jalvi Villegas (JVillegasT)
+
+Código:[ largest-number/clave de ordenamiento.py]( largest-number/clave de ordenamiento.py)   
+
+Familia: ordenamiento personalizado (Sorting / Custom Comparator)
+
+Idea: Convertir todos los números enteros a cadenas de texto y ordenarlos mediante un comparador personalizado basado en la concatenación (`a + b` vs `b + a`). Si la combinación de `a` seguido de `b` es mayor, `a` tiene mayor prioridad. Se utiliza `functools.cmp_to_key` para aplicar este orden y finalmente se unen las cadenas, manejando el caso especial donde el resultado es solo ceros.
+
+Complejidad: tiempo $O(N \log N \cdot L)$ y espacio $O(N \cdot L)$, con $N = \text{nums.length}$ y $L$ la longitud promedio de las cadenas.
+
+
+![Accepted — Largest Number](Evidencias/Largest Number.png)
