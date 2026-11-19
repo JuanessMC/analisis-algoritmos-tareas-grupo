@@ -53,7 +53,7 @@ Enlace: https://leetcode.com/problems/largest-number/description/
 
 Autor: Jalvi Villegas (JVillegasT)
 
-Código:[ largest-number/clave de ordenamiento.py]( largest-number/clave de ordenamiento.py)   
+Código:[ largest-number/clave_de_ordenamiento.py]( largest-number/clave_de_ordenamiento.py)   
 
 Familia: ordenamiento personalizado (Sorting / Custom Comparator)
 
@@ -62,4 +62,4 @@ Idea: Convertir todos los números enteros a cadenas de texto y ordenarlos media
 Complejidad: tiempo $O(N \log N \cdot L)$ y espacio $O(N \cdot L)$, con $N = \text{nums.length}$ y $L$ la longitud promedio de las cadenas.
 
 
-![Accepted — Largest Number](Evidencias/Largest Number.png)
+![Accepted — Largest Number](Evidencias/Largest_Number.png)
