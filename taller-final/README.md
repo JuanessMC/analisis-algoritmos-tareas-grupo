@@ -32,10 +32,14 @@ Complejidad: tiempo `Θ(n²)` y espacio `Θ(n)`, con `n = nums.length`.
 ![Accepted — Longest Increasing Subsequence](Evidencias/longest-increasing-subsequence.png)
 
 ## 215. kth-largest-element-in-an-array
-
 Enlace: https://leetcode.com/problems/kth-largest-element-in-an-array/description/
-Autor: Jalvi Villegas (JVillegas)
-Código: kth-largest/heap.py
+
+Autor: Jalvi Villegas (JVillegasT)
+
+Código: kth-largest-element/heap.py
+
 Familia: montículos / colas de prioridad (Heaps)
+
 Idea: Usar un min-heap de tamaño $k$ para almacenar los elementos más grandes encontrados. Se inicializa el heap con los primeros $k$ elementos del arreglo y se recorre el resto; si un elemento es mayor que la raíz del heap (`min_heap[0]`), se reemplaza usando `heappushpop`. Al finalizar, la raíz del heap contiene el k-ésimo elemento más grande sin necesidad de ordenar todo el arreglo.
+
 Complejidad: tiempo $O(N \log k)$ y espacio $O(k)$, con $N = \text{nums.length}$.
