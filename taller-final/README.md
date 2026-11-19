@@ -44,3 +44,5 @@ Familia: montículos / colas de prioridad (Heaps)
 Idea: Usar un min-heap de tamaño $k$ para almacenar los elementos más grandes encontrados. Se inicializa el heap con los primeros $k$ elementos del arreglo y se recorre el resto; si un elemento es mayor que la raíz del heap (`min_heap[0]`), se reemplaza usando `heappushpop`. Al finalizar, la raíz del heap contiene el k-ésimo elemento más grande sin necesidad de ordenar todo el arreglo.
 
 Complejidad: tiempo $O(N \log k)$ y espacio $O(k)$, con $N = \text{nums.length}$.
+
+![Accepted — kth-largest](Evidencias/kth-largest-accepted.png)
