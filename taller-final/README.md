@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | … | … | … |
 | Jalvi Humberto Villegas Taborda | `JVillegasT` | 215,179 |
+|Ricardo Amortegui Espinosa | `RicardoAmortegui` | 743, 1584 |
 | David Prada Quintero | `DavidP03` | 72, 300 |
 | … | … | … |
 
@@ -63,3 +64,35 @@ Complejidad: tiempo $O(N \log N \cdot L)$ y espacio $O(N \cdot L)$, con $N = \te
 
 
 ![Accepted — Largest Number](Evidencias/Largest_Number.png)
+
+## 743. Network Delay Time
+
+Enlace: https://leetcode.com/problems/network-delay-time/
+
+Autor: Ricardo Amortegui Espinosa (`RicardoAmortegui`)
+
+Código: [network-delay-time/solution.py](network-delay-time/solution.py)
+
+Familia: grafos (Dijkstra)
+
+Idea: grafo dirigido y ponderado (arco `u → v` con peso `w ≥ 0`). Dijkstra desde `k` con un min-heap de (distancia tentativa, nodo): se fija el nodo más cercano y se relajan sus arcos. La respuesta es la mayor distancia final, porque hay que esperar al nodo que más tarda; si alguno queda en infinito, se devuelve `-1`.
+
+Complejidad: tiempo `O((n + m) log n)` y espacio `O(n + m)`, con `n` nodos y `m = times.length`.
+
+![Accepted — Network Delay Time](Evidencias/network-delay-time-accepted.png)
+
+## 1584. Min Cost to Connect All Points
+
+Enlace: https://leetcode.com/problems/min-cost-to-connect-all-points/
+
+Autor: Ricardo Amortegui Espinosa (`RicardoAmortegui`)
+
+Código: [min-cost-to-connect-all-points/solution.py](min-cost-to-connect-all-points/solution.py)
+
+Familia: grafos (árbol de recubrimiento mínimo), Kruskal
+
+Idea: grafo completo no dirigido; vértices = puntos, peso = distancia de Manhattan. Se ordenan las `n(n−1)/2` aristas de menor a mayor y se toma cada una solo si une componentes distintas (Union-Find con compresión de camino y unión por rango); la que cerraría un ciclo se rechaza. Se para al tener `n − 1` aristas.
+
+Complejidad: tiempo `O(n² log n)` (domina el sort de las Θ(n²) aristas) y espacio `O(n²)`, con `n = points.length`.
+
+![Accepted — Min Cost to Connect All Points](Evidencias/min-cost-to-connect-all-points-accepted.png)
