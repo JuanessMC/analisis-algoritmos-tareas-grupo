@@ -8,7 +8,7 @@
 | Jalvi Humberto Villegas Taborda | `JVillegasT` | 215,179 |
 |Ricardo Amortegui Espinosa | `RicardoAmortegui` | 743, 1584 |
 | David Prada Quintero | `DavidP03` | 72, 300 |
-| … | … | … |
+| Juan Esteban Moreno Cuadros | `JuanessMC` | 134, 79 |
 
 ## 72. Edit Distance
 
@@ -96,3 +96,34 @@ Idea: grafo completo no dirigido; vértices = puntos, peso = distancia de Manhat
 Complejidad: tiempo `O(n² log n)` (domina el sort de las Θ(n²) aristas) y espacio `O(n²)`, con `n = points.length`.
 
 ![Accepted — Min Cost to Connect All Points](Evidencias/min-cost-to-connect-all-points-accepted.png)
+## 134. Gas Station
+ 
+Enlace: https://leetcode.com/problems/gas-station/
+ 
+Autor: Juan Esteban Moreno Cuadros (`JuanessMC`)
+ 
+Código: [gas-station/solution.py](gas-station/solution.py)
+ 
+Familia: greedy
+ 
+Idea: si `sum(gas) < sum(cost)` no hay vuelta posible y se devuelve `-1`. Si alcanza, se recorre una vez sumando `gas[i] − cost[i]` al tanque; cuando el tanque queda negativo en `i`, se descarta todo el tramo desde el inicio candidato hasta `i`, el nuevo candidato es `i + 1` y el tanque vuelve a 0. No se vuelve atrás porque a cada estación del tramo se llegaba con tanque ≥ 0: empezar ahí con tanque 0 es igual o peor, así que tampoco pasaría de `i`.
+ 
+Complejidad: tiempo `Θ(n)` y espacio extra `Θ(1)`, con `n = gas.length`.
+ 
+![Accepted — Gas Station](Evidencias/gas-station-accepted.png)
+ 
+## 79. Word Search
+ 
+Enlace: https://leetcode.com/problems/word-search/
+ 
+Autor: Juan Esteban Moreno Cuadros (`JuanessMC`)
+ 
+Código: [word-search/solution.py](word-search/solution.py)
+ 
+Familia: backtracking
+ 
+Idea: estado (fila, columna, `k`). Se elige una celda vecina ortogonal que tenga `word[k]`, se marca con `#` para no reutilizarla en el mismo camino y se baja con `k + 1`; al volver se deshace la marca devolviéndole su letra, para que otro camino pueda usarla. La diagonal no es vecina. Antes de buscar se poda: si la palabra pide una letra más veces de las que hay en la grilla, se devuelve `false`, y si la última letra es más rara que la primera se busca la palabra al revés.
+ 
+Complejidad: tiempo `O(m · n · 4^L)` en el peor caso y espacio `O(L)` de la pila de recursión, con grilla `m × n` y `L = word.length`.
+ 
+![Accepted — Word Search](Evidencias/word-search-accepted.png)
